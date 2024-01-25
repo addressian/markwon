@@ -13,13 +13,13 @@ import io.noties.markwon.inlineparser.InlineProcessor;
  */
 class JLatexMathInlineProcessor extends InlineProcessor {
 
-    // $..$ 和 \(..\)
+    // \(..\)
     private static final Pattern RE =
-            Pattern.compile("(\\$)([\\s\\S]+?)(\\$)|(\\\\()([\\s\\S]+?)(\\\\))");
+            Pattern.compile("(\\\\\\()([\\s\\S]+?)(\\\\\\))");
 
     @Override
     public char specialCharacter() {
-        return '$';
+        return '\\';
     }
 
     @Nullable
@@ -37,8 +37,6 @@ class JLatexMathInlineProcessor extends InlineProcessor {
     }
 
     String trimWrapping(String latex) {
-        return latex.startsWith("$") & latex.endsWith("$")
-                ? latex.substring(1, latex.length() - 1)
-                : latex.substring(2, latex.length() - 2);
+        return latex.substring(2, latex.length() - 2);
     }
 }
