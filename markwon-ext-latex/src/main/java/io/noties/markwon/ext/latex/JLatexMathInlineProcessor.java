@@ -1,5 +1,7 @@
 package io.noties.markwon.ext.latex;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 
 import org.commonmark.node.Node;
@@ -19,13 +21,13 @@ class JLatexMathInlineProcessor extends InlineProcessor {
 
     @Override
     public char specialCharacter() {
-        return '\\';
+        return ')';
     }
 
     @Nullable
     @Override
     protected Node parse() {
-
+        Log.d("JLatexMathInline", "parse: context:" + context);
         final String latex = match(RE);
         if (latex == null) {
             return null;
