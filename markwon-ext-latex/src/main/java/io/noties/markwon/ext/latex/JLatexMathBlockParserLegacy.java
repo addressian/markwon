@@ -45,12 +45,22 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
 
         final int length = builder.length();
         if (length > 1) {
-            isClosed = '$' == builder.charAt(length - 1)
-                    && '$' == builder.charAt(length - 2);
+            isClosed = isEndWithDoubleDollar(length)
+                    || isEndWithSlashSummaryIssue(length);
             if (isClosed) {
                 builder.replace(length - 2, length, "");
             }
         }
+    }
+
+    private boolean isEndWithDoubleDollar(int length) {
+        return '$' == builder.charAt(length - 1)
+                && '$' == builder.charAt(length - 2);
+    }
+
+    private boolean isEndWithSlashSummaryIssue(int length) {
+        return '\\' == builder.charAt(length - 1)
+                && ']' == builder.charAt(length - 2);
     }
 
     @Override
@@ -69,14 +79,24 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
                     : 0;
 
             if (length > 1) {
-                if ('$' == line.charAt(0)
-                        && '$' == line.charAt(1)) {
+                if (isStartWithDoubleDollar(line)
+                        || isStartWithSlashSummaryIssue(line)) {
                     return BlockStart.of(new JLatexMathBlockParserLegacy())
                             .atIndex(state.getIndex() + 2);
                 }
             }
 
             return BlockStart.none();
+        }
+
+        private static boolean isStartWithDoubleDollar(CharSequence line) {
+            return '$' == line.charAt(0)
+                    && '$' == line.charAt(1);
+        }
+
+        private static boolean isStartWithSlashSummaryIssue(CharSequence line) {
+            return '\\' == line.charAt(0)
+                    && '[' == line.charAt(1);
         }
     }
 }
