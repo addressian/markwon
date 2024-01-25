@@ -15,11 +15,11 @@ class JLatexMathInlineProcessor extends InlineProcessor {
 
     // \(..\)
     private static final Pattern RE =
-            Pattern.compile("(\\\\)(\\()([\\s\\S]+?)(\\\\)(\\))");
+            Pattern.compile("(\\\\\\()([\\s\\S]+?)(\\\\\\))");
 
     @Override
     public char specialCharacter() {
-        return '\\';
+        return '(';
     }
 
     @Nullable
