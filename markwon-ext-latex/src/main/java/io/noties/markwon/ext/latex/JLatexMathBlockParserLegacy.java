@@ -59,8 +59,8 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
     }
 
     private boolean isEndWithSlashSummaryIssue(int length) {
-        return '\\' == builder.charAt(length - 1)
-                && ']' == builder.charAt(length - 2);
+        return ']' == builder.charAt(length - 1)
+                && '\\' == builder.charAt(length - 2);
     }
 
     @Override
