@@ -39,6 +39,6 @@ class JLatexMathInlineProcessor extends InlineProcessor {
     }
 
     String trimWrapping(String latex) {
-        return latex.substring(2, latex.length() - 2);
+        return latex.substring(3, latex.length() - 3);
     }
 }
