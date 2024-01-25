@@ -21,7 +21,7 @@ class JLatexMathInlineProcessor extends InlineProcessor {
 
     @Override
     public char specialCharacter() {
-        return ')';
+        return '\\';
     }
 
     @Nullable
