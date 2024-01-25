@@ -15,7 +15,7 @@ class JLatexMathInlineProcessor extends InlineProcessor {
 
     // $..$ 和 \(..\)
     private static final Pattern RE =
-            Pattern.compile("(\\$)([\\s\\S]+?)(\\$)|(\\\\\\()([\\s\\S]+?)(\\\\\\))");
+            Pattern.compile("(\\$)([\\s\\S]+?)(\\$)|(\\\\()([\\s\\S]+?)(\\\\))");
 
     @Override
     public char specialCharacter() {
