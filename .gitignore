@@ -8,3 +8,4 @@
 **/build
 **/dist
 **/node_modules
+gradle/wrapper/gradle-wrapper.properties
