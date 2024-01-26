@@ -79,10 +79,18 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
                     : 0;
 
             if (length > 1) {
-                if (isStartWithDoubleDollar(line)
-                        || isStartWithSlashSummaryIssue(line)) {
+                if (isStartWithDoubleDollar(line.toString().trim())
+                        || isStartWithSlashSummaryIssue(line.toString().trim())) {
+                    int startIndex = 2;
+                    for (int i = 0; i < line.length(); i++) {
+                        if (' ' == line.charAt(i)) {
+                            startIndex++;
+                        } else {
+                            break;
+                        }
+                    }
                     return BlockStart.of(new JLatexMathBlockParserLegacy())
-                            .atIndex(state.getIndex() + 2);
+                            .atIndex(state.getIndex() + startIndex);
                 }
             }
 
