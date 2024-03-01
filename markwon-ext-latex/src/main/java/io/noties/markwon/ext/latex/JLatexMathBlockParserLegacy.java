@@ -53,7 +53,7 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
             isClosed = isEndWithDoubleDollar(length)
                     || isEndWithSlashSummaryIssue(length);
             if (isClosed) {
-                builder.replace(length - 2, length, "");
+                builder.replace(length - 2, length, "\n");
             }
         }
     }
