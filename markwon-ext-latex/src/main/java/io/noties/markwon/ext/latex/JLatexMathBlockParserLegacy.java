@@ -78,7 +78,8 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
         @Override
         public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
             final CharSequence line = state.getLine();
-            Log.d(TAG, "tryStart: " + line);
+//            Log.d(TAG, "tryStart: " + line);
+            System.out.println("tryStart: " + line);
             final int length = line != null ? line.length() : 0;
 
             if (length > 1) {
