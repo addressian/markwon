@@ -50,9 +50,6 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
 
         final int length = builder.length();
         if (length > 1) {
-//            String currentLine = builder.toString().replace("\n", "").substring(length - 2, length);
-//            isClosed = isEndWithDoubleDollar(currentLine)
-//                    || isEndWithSlashSummaryIssue(currentLine);
             isClosed = isEndWithDoubleDollar(length)
                     || isEndWithSlashSummaryIssue(length);
             if (isClosed) {
@@ -61,17 +58,11 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
         }
     }
 
-    //    private boolean isEndWithDoubleDollar(String content) {
-//        return "$$".equals(content);
-//    }
     private boolean isEndWithDoubleDollar(int length) {
         return '$' == builder.charAt(length - 1)
                 && '$' == builder.charAt(length - 2);
     }
 
-    //    private boolean isEndWithSlashSummaryIssue(String content) {
-//        return "\\]".equals(content);
-//    }
     private boolean isEndWithSlashSummaryIssue(int length) {
         return ']' == builder.charAt(length - 1)
                 && '\\' == builder.charAt(length - 2);
@@ -86,8 +77,8 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
 
         @Override
         public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
-
             final CharSequence line = state.getLine();
+            Log.d(TAG, "tryStart: " + line);
             final int length = line != null ? line.length() : 0;
 
             if (length > 1) {
