@@ -1,5 +1,7 @@
 package io.noties.markwon.ext.latex;
 
+import android.util.Log;
+
 import org.commonmark.node.Block;
 import org.commonmark.parser.block.AbstractBlockParser;
 import org.commonmark.parser.block.AbstractBlockParserFactory;
@@ -12,6 +14,8 @@ import org.commonmark.parser.block.ParserState;
  * @since 4.3.0 (although it is just renamed parser from previous versions)
  */
 class JLatexMathBlockParserLegacy extends AbstractBlockParser {
+
+    private static final String TAG = "JLatexMathBlockParserLe";
 
     private final JLatexMathBlock block = new JLatexMathBlock();
 
@@ -36,6 +40,7 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
 
     @Override
     public void addLine(CharSequence line) {
+        Log.d(TAG, "addLine: " + line);
 
         if (builder.length() > 0) {
             builder.append('\n');
@@ -45,6 +50,9 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
 
         final int length = builder.length();
         if (length > 1) {
+//            String currentLine = builder.toString().replace("\n", "").substring(length - 2, length);
+//            isClosed = isEndWithDoubleDollar(currentLine)
+//                    || isEndWithSlashSummaryIssue(currentLine);
             isClosed = isEndWithDoubleDollar(length)
                     || isEndWithSlashSummaryIssue(length);
             if (isClosed) {
@@ -53,11 +61,17 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
         }
     }
 
+    //    private boolean isEndWithDoubleDollar(String content) {
+//        return "$$".equals(content);
+//    }
     private boolean isEndWithDoubleDollar(int length) {
         return '$' == builder.charAt(length - 1)
                 && '$' == builder.charAt(length - 2);
     }
 
+    //    private boolean isEndWithSlashSummaryIssue(String content) {
+//        return "\\]".equals(content);
+//    }
     private boolean isEndWithSlashSummaryIssue(int length) {
         return ']' == builder.charAt(length - 1)
                 && '\\' == builder.charAt(length - 2);
@@ -74,9 +88,7 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
         public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
 
             final CharSequence line = state.getLine();
-            final int length = line != null
-                    ? line.length()
-                    : 0;
+            final int length = line != null ? line.length() : 0;
 
             if (length > 1) {
                 if (isStartWithDoubleDollar(line.toString().trim())
