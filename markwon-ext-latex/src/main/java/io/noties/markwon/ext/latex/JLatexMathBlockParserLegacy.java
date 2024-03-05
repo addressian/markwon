@@ -78,13 +78,11 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
         @Override
         public BlockStart tryStart(ParserState state, MatchedBlockParser matchedBlockParser) {
             final CharSequence line = state.getLine();
-//            Log.d(TAG, "tryStart: " + line);
-            System.out.println("tryStart: " + line);
             final int length = line != null ? line.length() : 0;
 
             if (length > 1) {
-                if (isStartWithDoubleDollar(line.toString().trim())
-                        || isStartWithSlashSummaryIssue(line.toString().trim())) {
+                if (isStartWithDoubleDollar(line.toString())
+                        || isStartWithSlashSummaryIssue(line.toString())) {
                     int startIndex = 2;
                     for (int i = 0; i < line.length(); i++) {
                         if (' ' == line.charAt(i)) {
@@ -101,14 +99,16 @@ class JLatexMathBlockParserLegacy extends AbstractBlockParser {
             return BlockStart.none();
         }
 
-        private static boolean isStartWithDoubleDollar(CharSequence line) {
-            return '$' == line.charAt(0)
-                    && '$' == line.charAt(1);
+        private static boolean isStartWithDoubleDollar(String line) {
+            String content = line.trim().replace("\n","");
+            return '$' == content.charAt(0)
+                    && '$' == content.charAt(1);
         }
 
-        private static boolean isStartWithSlashSummaryIssue(CharSequence line) {
-            return '\\' == line.charAt(0)
-                    && '[' == line.charAt(1);
+        private static boolean isStartWithSlashSummaryIssue(String line) {
+            String content = line.trim().replace("\n","");
+            return '\\' == content.charAt(0)
+                    && '[' == content.charAt(1);
         }
     }
 }
